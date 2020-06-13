@@ -63,7 +63,7 @@ class Solution:
     # @return a list of integers
     def solve(self, A, B):
         G = []
-        
+        mod = 1000000007
         for i in range(len(A)):
             for j in range(i+1, len(A)+1):
                 temp = max(A[i:j])
@@ -75,7 +75,7 @@ class Solution:
                 if m.sqrt(temp) == int(m.sqrt(temp)):
                     count -= 1
                     
-                product = int(pow(temp, count/2.0))
+                product = int(pow(temp, count/2.0)%mod)
                 
                 G.append(product)
                 
