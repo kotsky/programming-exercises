@@ -12,6 +12,10 @@ n : 9
 GCD(m, n) : 3 
 '''
 
+'''
+    def gcd(self, A, B):
+        return self.gcd(B,A%B) if A and B else max(A,B)
+'''
 
 import math as m
 
