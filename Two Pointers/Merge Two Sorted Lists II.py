@@ -36,12 +36,13 @@ class Solution:
             if n == N:
                 for i in range(m, M):
                     res.append(A[i])
-                    A = res.copy()
-                    
-                return A
-    
+                A = res.copy()
+                m = M
+
             if m == M:
                 for i in range(n, N):
                     res.append(B[i])
-                    A = res.copy()
-                return A
+                A = res.copy()
+                n = N
+                
+        return A
