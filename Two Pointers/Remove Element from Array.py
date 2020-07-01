@@ -18,6 +18,10 @@ class Solution:
     # @param B : integer
     # @return an integer
     def removeElement(self, A, B):
+        A[:] = [x for x in A if x!=B]
+        return len(A)
+    
+    def removeElement_v2(self, A, B):
         n = len(A)
 
         if n==1 and A[0]==B: # handlign edge cases
