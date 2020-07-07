@@ -1,5 +1,5 @@
-# interviewbit-exercises
-My solutions of interviewbit tasks 
+# programming-exercises
+My solutions of different programming tasks 
 
 To check again:
 1. Bit Manipulation/Count Total Set Bits.py
