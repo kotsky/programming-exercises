@@ -13,12 +13,12 @@ class BinaryTree:
 
 def branchSums(root):
     # Write your code here.
-    res = []
-	s = 0
-	func(root, s, res)
+    res = []	# contains sums
+	s = 0	# local sum
+	branchSumsHelper(root, s, res)
 	return res
 	
-def func(node, s, res):
+def branchSumsHelper(node, s, res):
 
 	s += node.value
 	
@@ -26,9 +26,9 @@ def func(node, s, res):
 		res.append(s)
 		
 	if node.left is not None:
-		func(node.left, s, res)
+		branchSumsHelper(node.left, s, res)
 	
 	if node.right is not None:
-		func(node.right, s, res)
+		branchSumsHelper(node.right, s, res)
 		
 		
