@@ -27,3 +27,7 @@ class Stack:
     
     def getMax(self):
         return self.max[-1] if len(self.stack) > 0 else None
+
+    def printStack(self):
+        for i in range(len(self.stack)):
+            print(self.stack[-1-i], end=("->"*(i != len(self.stack)-1)))
