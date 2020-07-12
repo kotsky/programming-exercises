@@ -1,5 +1,5 @@
 '''
-Bubble sort algo. O(N*log(N)) T / O(1) S
+Bubble sort algo. O(N^2) T / O(1) S
 '''
 
 def bubbleSort(array):
