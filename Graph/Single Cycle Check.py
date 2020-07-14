@@ -3,6 +3,19 @@ Elements of the givem array are as jump count. Is the given array a single loop
 according to those jumps?
 '''
 
+def hasSingleCycle(array):
+    current_index = 0
+    elements = len(array)
+    while elements > 0:
+        current_index = (array[current_index] + current_index) % len(array)
+        if current_index < 0:
+            current_index += len(array)
+	elements -= 1
+        if elements > 0 and current_index == 0:
+            return False
+    return current_index == 0
+
+'''
 # Version 1
 # O(N) T / O(1) S
 def hasSingleCycle(array):
@@ -33,3 +46,4 @@ def hasSingleCycle(array):
 			return False
 		counter -= 1
 	return True
+'''
