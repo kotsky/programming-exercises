@@ -1,7 +1,7 @@
 # To check if given array is monotonic
 
 def isMonotonic(array):
-    increasing = True
+    	increasing = True
 	decreasing = True
 	for i in range(len(array)-1):
 		if array[i] > array[i+1]:
