@@ -16,44 +16,43 @@ You should return
 '''
 
 
-class Solution:
-    # @param A : tuple of list of integers
-    # @return a list of integers
-    def spiralOrder(self, A):
-        n = len(A[0])
-        count = 0
-        m = len(A)
-        res = []
-        t = 0
-        d = n
-        b = m
-        g = 0
-        dir = 0
-        if (len(A) >= 0 ):
-            while (count < (n*m)):
-                if dir == 0:
-                    for i in range(t, d):
-                        res.append(A[t][i])
-                        count += 1
-                    t += 1
-                elif dir == 1:
-                    for i in range(t, b):
-                        res.append(A[i][d-1])
-                        count += 1
-                    d -= 1
-                elif dir == 2:
-                    for i in range(g, d):
-                        res.append(A[b-1][d-1 - i])
-                        count += 1
-                    b -= 1
-                elif dir == 3:
-                    for i in range(t, b):
-                        res.append(A[b-i][g])
-                        count += 1
-                    g += 1
+def spiralTraverse(array):
+	if type(array[0]) is None:
+		return array
+    a = 0	# vertical pointer 1
+	b = len(array[0])-1 	# vertiacal pointer 2
+	c = 0	# horizontal pointer 1
+	d = len(array)-1		# horizontal pointer 2
+	direction = 0		# direction ->
+	one_d = []	# answer: one dimension array
+	
+	while b >= a and c <= d:
+		if direction == 0:
+			nums = array[c][a:b+1]
+			for num in nums:
+				one_d.append(num)
+			c += 1
+			
+		elif direction == 1:
+			for index in range(c, d+1):
+				one_d.append(array[index][b])
+			b -= 1
+			
+		elif direction == 2:
+			nums = array[d][a:b+1]
+			for i in range(len(nums)):
+				one_d.append(nums[-1-i])
+			d -= 1
+			
+		else:
+			for index in range(d, c-1, -1):
+				one_d.append(array[index][a])
+			a += 1
+			
+        direction = (direction + 1) % 4
+	return one_d
 
-                dir = (dir + 1) % 4
-        else:
-            res = A[0]
-            
-        return res
+			
+
+                
+
