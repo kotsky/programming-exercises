@@ -19,10 +19,10 @@ You should return
 def spiralTraverse(array):
 	if type(array[0]) is None:
 		return array
-    a = 0	# vertical pointer 1
+    	a = 0			# vertical pointer 1
 	b = len(array[0])-1 	# vertiacal pointer 2
-	c = 0	# horizontal pointer 1
-	d = len(array)-1		# horizontal pointer 2
+	c = 0			# horizontal pointer 1
+	d = len(array)-1	# horizontal pointer 2
 	direction = 0		# direction ->
 	one_d = []	# answer: one dimension array
 	
