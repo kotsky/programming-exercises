@@ -32,7 +32,7 @@ def underscorifySubstring(string, substring):
             counter += 1
             if counter > len(merged_interval) * 2 - 1:
                 reference = -1
-				new_string.append(string[i+1:])
+		new_string.append(string[i+1:])
                 break
             reference = merged_interval[counter // 2][counter % 2]
         else:
