@@ -11,7 +11,7 @@ Input = "this is a big string", ["this", "yo", "is", "a", "bigger", "string", "k
 # b - len of bigString
 
 def multiStringSearch(bigString, smallStrings):
-  isInString = [False] * len(smallStrings)
+  	isInString = [False] * len(smallStrings)
 	tiers = Tiers(smallStrings)
 	for i in range(len(bigString)):
 		searchHelper(bigString, tiers, i, isInString)
