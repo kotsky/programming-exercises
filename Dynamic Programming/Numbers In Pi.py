@@ -14,13 +14,20 @@ Answer = 2  # 314159265 | 35897932384626433832 | 79
 # m = len(numbers)
 # k = len(longest number from numbers[])
 
+# The version below is optimized with cache memorisation
+
 def numbersInPi(pi, numbers):
     current_spaces = 0
-    spaces, current_spaces = checkByFirstNumber(pi, 0, current_spaces, numbers, float("inf"))
+    cache = {}
+    spaces, current_spaces = checkByFirstNumber(pi, 0, current_spaces, numbers, float("inf"), cache)
     return -1 if spaces == float("inf") else spaces
 
 
-def checkByFirstNumber(pi, start_idx, current_spaces, numbers, spaces):
+def checkByFirstNumber(pi, start_idx, current_spaces, numbers, spaces, cache):
+    if start_idx in cache:
+        spaces = min(spaces, current_spaces + cache[start_idx] + 1)
+        return spaces, current_spaces
+
     if start_idx == len(pi):
         spaces = min(spaces, current_spaces - 1)
         return spaces, current_spaces
@@ -40,6 +47,11 @@ def checkByFirstNumber(pi, start_idx, current_spaces, numbers, spaces):
                 continue
             current_spaces += 1
             shift_by = len(numbers[idx])
-            spaces, current_spaces = checkByFirstNumber(pi, start_idx + shift_by, current_spaces, numbers, spaces)
+            spaces, current_spaces = checkByFirstNumber(pi, start_idx + shift_by, current_spaces,
+                                                        numbers, spaces, cache)
+            if start_idx in cache:
+                cache[start_idx] = min(spaces - current_spaces, cache[start_idx])
+            else:
+                cache[start_idx] = spaces - current_spaces
             current_spaces -= 1
     return spaces, current_spaces
