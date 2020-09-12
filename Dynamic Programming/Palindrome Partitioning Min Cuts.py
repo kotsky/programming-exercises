@@ -31,7 +31,7 @@ def definePalindromes(matrix, string):
 '''
 def definePalindromes(matrix, string):
 	matrix[0][0] = True
-    for i in range(1, len(string)):
+	for i in range(1, len(string)):
 		explorePolindrom(string, i, i, matrix)
 		explorePolindrom(string, i-1, i, matrix)
 
