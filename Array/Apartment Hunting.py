@@ -15,6 +15,52 @@ reqs = ["gym", "school", "store"]
 Answer = 3
 '''
 
+# Version 2. O(b * r) Time & O(1) space / if we can change the given input array
+
+
+def apartmentHunting(blocks, reqs):
+    updateDistancesFromBlocks(blocks, reqs)
+	return getBlockWithMinDistance(blocks, reqs)
+
+
+def updateDistancesFromBlocks(blocks, reqs):
+	for req in reqs:
+		last_seen_req_at_idx = -1
+		for i in range(len(blocks)):
+			if blocks[i][req]:
+				blocks[i][req] = 0
+				last_seen_req_at_idx = i
+				continue
+			if last_seen_req_at_idx == -1:
+				blocks[i][req] = float("inf")
+			else:
+				blocks[i][req] = i - last_seen_req_at_idx
+		last_seen_req_at_idx = -1
+		for i in reversed(range(len(blocks))):
+			if blocks[i][req] == 0:
+				last_seen_req_at_idx = i
+				continue
+			if last_seen_req_at_idx != -1:
+				blocks[i][req] = min(blocks[i][req], last_seen_req_at_idx - i)
+		
+		
+def getBlockWithMinDistance(blocks, reqs):
+	min_distance = float("inf")
+	block_with_min_distance = -1
+	for i in range(len(blocks)):
+		block = blocks[i]
+		block_min_distance = float("-inf")
+		for req in reqs:
+			block_min_distance = max(block_min_distance, block[req])
+		if block_min_distance < min_distance:
+			min_distance = block_min_distance
+			block_with_min_distance = i
+	return block_with_min_distance
+
+
+'''
+# Version 1. O(b * r) Time & O(b * r) space
+
 def apartmentHunting(blocks, reqs):
     apartmentTable = {}
     for req in reqs:
@@ -58,7 +104,7 @@ def requirementUpdate(blocks, apartmentTable, req, direction):
             if req_current_idx != -1:
                 apartmentTable[i][req] = min(apartmentTable[i][req], req_current_idx - i)
 
-
+'''
 
 
 print(apartmentHunting(blocks, reqs))
