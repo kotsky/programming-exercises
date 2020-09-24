@@ -15,7 +15,7 @@ Define all sums (as a total sum) of each root node based on its depth.
 # More descriptive info under Version 1.
 
 def allKindsOfNodeDepths(root, depth=0):
-  if root is None:
+	if root is None:
 		return 0
 	
   # Formula to calculate 1 + 2 + 3 + ... + depth - 1 + depth
