@@ -74,7 +74,7 @@ def longestIncreasingSubsequence(array):
             sequence_start_idx = i
     return buildLongestSequence(array, sub_sequences, sequence_start_idx)
 
-
+# Version 1. From left to right
 def exploreSequenceFromIdx(array, sub_sequences, i):
     if sub_sequences[i]["length"] is not None:
         return sub_sequences[i]["length"]
@@ -87,6 +87,22 @@ def exploreSequenceFromIdx(array, sub_sequences, i):
             sub_sequences[i]["length"] = possible_longest_length
             sub_sequences[i]["next_idx"] = j
     return sub_sequences[i]["length"]
+    
+# Version 2. From the end
+'''
+def exploreSequenceFromIdx(array, sub_sequences, i):
+    if sub_sequences[i]["length"] is not None:
+        return sub_sequences[i]["length"]
+    sub_sequences[i]["length"] = 0
+    for j in range(i + 1, len(array)):
+        possible_longest_length = exploreSequenceFromIdx(array, sub_sequences, j) + 1
+        if array[i] >= array[j]:
+            continue
+        if possible_longest_length > sub_sequences[i]["length"]:
+            sub_sequences[i]["length"] = possible_longest_length
+            sub_sequences[i]["next_idx"] = j
+    return sub_sequences[i]["length"]
+'''
 
 
 def buildLongestSequence(array, sub_sequences, sequence_start_idx):
