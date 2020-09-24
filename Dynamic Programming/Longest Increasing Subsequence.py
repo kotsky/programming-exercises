@@ -57,7 +57,7 @@ def binarySearchAndIndicesUpdate(i, array, indices, sequences):
 
 '''
 # Version 1
-# O(N) -> O(N^2) Time depends on the given input array / O(N) Space
+# O(N^2) Time / O(N) Space
 # Dymnamic style + recursion on each num -> dive deeper to explore possible chains.
 # Track its depth (length of chain) + next number
 
