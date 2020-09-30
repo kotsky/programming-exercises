@@ -36,6 +36,7 @@ def getSmallestSubstringContaining(string, table, unique_chr):
     smallestSubstringContainingIdx = [-1, -1]
     lengthSS = float("inf")
 
+	# firstly, let's skip all useless letter at the beginning
     while left < len(string) and string[left] not in table:
         left += 1
     right = left  # pointer from the right
@@ -43,6 +44,7 @@ def getSmallestSubstringContaining(string, table, unique_chr):
     while left <= right < len(string):
         letter = string[right]
         if letter in table:
+			# how many unique symbol did we find? current_unique_chr tracks it
             current_unique_chr = updateUniqueCounter(current_unique_chr, letter, table, 1)
         else:
             right += 1
@@ -50,9 +52,15 @@ def getSmallestSubstringContaining(string, table, unique_chr):
 
         while current_unique_chr >= unique_chr:
             letter = string[left]
+			# update our smallest substring
             lengthSS, smallestSubstringContainingIdx = updateSmallestSubstringContaining(left, right, lengthSS, smallestSubstringContainingIdx)
-            current_unique_chr = updateUniqueCounter(current_unique_chr, letter, table, -1)
+            # and we push left pointer to move +1
+			# before, we update current_unique_chr 
+			# because we shift pointer from the letter,
+			# which we might use in our substring
+			current_unique_chr = updateUniqueCounter(current_unique_chr, letter, table, -1)
             left += 1
+			# if new letter in not in our small string, then again +1
             while left < len(string) and string[left] not in table:
                 left += 1
             if left == len(string):
