@@ -1,3 +1,20 @@
+'''
+Find substring from the bigString, which contains all letters of smallStrings 
+(if duplicates - substring must contain the same quantity of these letters).
+Order doesn't matter.
+'''
+
+
+bigString = "abcd$e f$axb$ c$"
+smallString = "$$abf"
+expected = "f$axb$"
+
+
+bigString = "abcdef"
+smallString = "d"
+expected = "d"
+print(smallestSubstringContaining(bigString, smallString))
+
 
 # Version 1. 
 # O(b + s) TS
@@ -80,11 +97,6 @@ def hashingSmallString(smallString):
             table[letter]["count"] += 1
     return table, unique_chr
 
-
-bigString = "abcdef"
-smallString = "d"
-
-print(smallestSubstringContaining(bigString, smallString))
 
 
 # Version 2. O(b^2 * s) T / O(b + s) S
