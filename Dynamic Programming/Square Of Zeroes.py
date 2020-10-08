@@ -40,7 +40,78 @@ All of this gives faster line validation.
 '''
 
 
+# Version 4. O(n^3) Time / O(n^2) Space
+# Square check method with pre-computation
+# of how many "0" to the right and to the bottom
+def squareOfZeroes(matrix):
+    if len(matrix) <= 1:
+        return False
 
+    # O(n^2) Time / O(n^2) Space
+    matrix_of_zeros = zerosInLine(matrix)
+
+    for n in range(len(matrix)):
+        for m in range(len(matrix[0])):
+            if matrix[n][m] == 1:
+                continue
+            isZeroSquare = checkValidZeroSquare(matrix, n, m, matrix_of_zeros)
+            if isZeroSquare:
+                return True
+    return False
+
+
+# Define how many "0" we have from its right and its down
+# at each idx of matrix by using dynamic programming
+# technic from the end.
+# O(n^2) T / S
+
+def zerosInLine(matrix):
+    matrix_of_zeros = [[[0, 0] for n in matrix] for n in matrix]     # where [0, 0] -> [down, right]
+
+    for row in reversed(range(len(matrix))):
+        for col in reversed(range(len(matrix[0]))):
+            if matrix[row][col] == 1:
+                continue
+
+            if row == len(matrix)-1:
+                down = 0
+            else:
+                down = matrix_of_zeros[row+1][col][0]
+
+            if col == len(matrix[0])-1:
+                right = 0
+            else:
+                right = matrix_of_zeros[row][col + 1][1]
+
+            matrix_of_zeros[row][col] = [down + 1, right + 1]
+    return matrix_of_zeros
+
+
+def checkValidZeroSquare(matrix, start_n, start_m, matrix_of_zeros):
+    n = start_n + 1
+    m = start_m + 1
+
+    while n < len(matrix) and m < len(matrix[0]):
+        if checkLine(start_n, start_m, start_n, m, "hor", matrix_of_zeros) \
+            and checkLine(start_n, start_m, n, start_m, "ver", matrix_of_zeros) \
+            and checkLine(n, start_m, n, m, "hor", matrix_of_zeros) \
+                and checkLine(start_n, m, n, m, "ver", matrix_of_zeros):
+            return True
+        n += 1
+        m += 1
+    return False
+
+
+def checkLine(start_n, start_m, n, m, direction, matrix_of_zeros):
+    if direction == "hor":
+        if (m - start_m + 1) <= matrix_of_zeros[start_n][start_m][1]:
+            return True
+    else:
+        if (n - start_n + 1) <= matrix_of_zeros[start_n][start_m][0]:
+            return True
+    return False
+
+'''
 # Version 3. O(n^3) Time / O(n^2) Space
 # Square check method with pre-computation
 def squareOfZeroes(matrix):
@@ -126,7 +197,7 @@ def createRelevantIntervals(intervals, matrix, row, col):
 
 def createKeyFromMatrixIdx(str_row, str_col):
     return str_row + "_" + str_col
-	
+'''
 
 '''
 # Version 2. O(n^4) Time / O(1) Space
