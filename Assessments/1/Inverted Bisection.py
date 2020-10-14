@@ -11,6 +11,12 @@ or
 Input: 0 -> 1 -> 2 -> 3 -> 4 -> 5 -> 6
 Output: 2 -> 1 -> 0 -> 3 -> 6 -> 5 -> 4
 
+Idea:
+1) Count total number of nodes
+2) Split LL on 2 parts + mid node if there is
+3) Reverse each part of LL
+4) Attach them accordingly
+
 '''
 
 
