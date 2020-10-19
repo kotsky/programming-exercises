@@ -31,6 +31,60 @@ class BST:
             else:
                 root = root.left
         return False
+    
+    '''
+    # Own version
+        def remove(self, value, parent_node=None):
+		current_node = self
+		while current_node is not None:
+			if current_node.value < value:
+				parent_node = current_node
+				current_node = current_node.right
+			elif current_node.value > value:
+				parent_node = current_node
+				current_node = current_node.left
+			else:
+				if current_node.right is None and current_node.left is None:
+					if parent_node is not None:
+						if parent_node.left == current_node:
+							parent_node.left = None
+						else:
+							parent_node.right = None
+				elif current_node.right is not None:
+					min_right_node, min_right_node_parent = self.getMinRightNode(current_node.right, current_node)
+
+					if min_right_node_parent.left == min_right_node:
+						min_right_node_parent.left = min_right_node.right
+					else:
+						min_right_node_parent.right = min_right_node.right
+					
+					current_node.value = min_right_node.value
+					
+				else:
+					max_left_node, max_left_node_parent = self.getMaxLeftNode(current_node.left, current_node)
+					
+					if max_left_node_parent.left == max_left_node:
+						max_left_node_parent.left = max_left_node.left
+					else:
+						max_left_node_parent.right = max_left_node.left
+					
+					current_node.value = max_left_node.value
+				break
+        return self
+	
+	def getMinRightNode(self, current_node, parent_node):
+		while current_node.left is not None:
+			parent_node = current_node
+			current_node = current_node.left
+		return current_node, parent_node
+	
+	def getMaxLeftNode(self, current_node, parent_node):
+		while current_node.right is not None:
+			parent_node = current_node
+			current_node = current_node.right
+		return current_node, parent_node
+	
+    '''
 
     def remove(self, value, parent_node=None):
         current_node = self
