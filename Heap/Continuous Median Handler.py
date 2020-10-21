@@ -181,7 +181,7 @@ class maxHeap:
                 else:
                     break
             else:
-                if self.heap[start_index] > self.heap[child_one_index]:
+                if self.heap[start_index] < self.heap[child_one_index]:
                     new_index = child_one_index
                 else:
                     break
