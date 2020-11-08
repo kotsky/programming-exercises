@@ -1,8 +1,8 @@
 """ Exercise: One or Zero edit.
 
 You have 2 strings: string1 and string2. Check, if you can
-do one time or zero insert/delete/replace to get string2
-from string 1.
+do one time or zero insert/delete/replace to have same 
+anagramma of string2 and string 1.
 
 Examples:
   pale - bake -> False
