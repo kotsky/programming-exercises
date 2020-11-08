@@ -47,7 +47,7 @@ def mergeList(l1, l2, merged_list):
     i = 0
     j = 0
 
-	while i < len(l1) and j < len(l2):
+    while i < len(l1) and j < len(l2):
         current_l1 = l1[i]
         current_l2 = l2[j]
 
