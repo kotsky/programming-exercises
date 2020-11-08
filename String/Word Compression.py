@@ -3,6 +3,8 @@ You need to compress word = 'aaaabbbccdkkrr' into
 'a3b3c2d1k2r2'.
 '''
 
+# O(N) Time / O(N) Space
+
 def compression(word):
     compressed_array = []
     letter_count = 0
