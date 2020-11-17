@@ -90,6 +90,8 @@ def sumList(head_one, head_two):
         return head
 
     ll_sum, one_is_longer = findSumOfTwoLinkedLists(head_one, head_two)
+    if ll_sum == 0: # for None, None inputs
+        return LinkedListNode(0)
     finale_linked_list = head_one if one_is_longer else head_two
     return calculateReversedLinkedListAndInsertInPlace(finale_linked_list, ll_sum)
 
