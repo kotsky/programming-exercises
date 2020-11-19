@@ -1,15 +1,15 @@
-
-smallString = "abbc"
-bigString = "fabcbsfbabc"
-
-ourput = [0, 2, 6, 10], 4
-
 '''
 The idea is to:
 1) Count unique letters in small string
 2) with 2 pointers and counter of passed unique letters in a big string, 
 traverse big string and checking how many and which letters we already passed 
 and does that particular part of len(smallString) was covered in bigString?
+
+Example:
+    smallString = "abbc"
+    bigString = "fabcbsfbabc"
+    output = [1, 7], 2
+    print(findAllPermutation(smallString, bigString))
 '''
 
 def findAllPermutation(small_string, big_string):
@@ -18,13 +18,13 @@ def findAllPermutation(small_string, big_string):
     return start_points
 
 
-def getStartIdxOfEachPermutation(bigString, tableOfLetters, legthOfSmallString):
+def getStartIdxOfEachPermutation(bigString, tableOfLetters, lengthOfSmallString):
     start_idx = []
     tableOfCurrentLetters = {}
     countOfUniqueLetter = 0
     referenceOfUniqueLetters = tableOfLetters["ref"]
 
-    for idx in range(legthOfSmallString):
+    for idx in range(lengthOfSmallString):
         letter = bigString[idx]
         if letter not in tableOfLetters:
             continue
@@ -38,8 +38,8 @@ def getStartIdxOfEachPermutation(bigString, tableOfLetters, legthOfSmallString):
     if countOfUniqueLetter == referenceOfUniqueLetters:
         start_idx.append(0)
 
-    for idx in range(legthOfSmallString, len(bigString)):
-        prev_letter = bigString[idx - legthOfSmallString]
+    for idx in range(lengthOfSmallString, len(bigString)):
+        prev_letter = bigString[idx - lengthOfSmallString]
         letter = bigString[idx]
 
         if prev_letter in tableOfLetters:
@@ -58,7 +58,7 @@ def getStartIdxOfEachPermutation(bigString, tableOfLetters, legthOfSmallString):
             countOfUniqueLetter += 1
 
         if countOfUniqueLetter == referenceOfUniqueLetters:
-            start_idx.append(idx - legthOfSmallString + 1)
+            start_idx.append(idx - lengthOfSmallString + 1)
 
     return start_idx
 
@@ -74,7 +74,3 @@ def buildTableOfUniqueLetter(string):
         table[letter] += 1
     table["ref"] = referenceOfUniqueLetters
     return table
-
-
-
-print(findAllPermutation(smallString, bigString))
