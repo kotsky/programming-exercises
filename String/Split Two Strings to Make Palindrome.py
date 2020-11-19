@@ -1,6 +1,6 @@
 '''
 The idea here is that we just check with 2 pointers if letters from the start of string1 can be equvalent to the end letters of string2. 
-When we reach point where letters are different, we check we the rest of string1 or string2 is palindrom.
+When we reach point where letters are different, if check we the rest of string1 or string2 is palindrom.
 '''
 
 class Solution:
