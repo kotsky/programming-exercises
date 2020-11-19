@@ -14,7 +14,7 @@ class LinkedList:
 # Then, move +1 from the head + pointer2 until they meet.
 
 def findLoop(head):
-  first = head.next
+  	first = head.next
 	second = head.next.next
 	while first != second:
 		first = first.next
@@ -31,7 +31,7 @@ def findLoop(head):
   # This is an input class. Do not edit.
 
 def findLoop(head):
-  path = {}
+  	path = {}
 	node = head
 	while node not in path:
 		path[node] = node.value
