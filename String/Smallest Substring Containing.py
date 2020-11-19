@@ -2,25 +2,27 @@
 Find substring from the bigString, which contains all letters of smallStrings 
 (if duplicates - substring must contain the same quantity of these letters).
 Order doesn't matter.
+
+Example:
+
+	bigString = "abcd$e f$axb$ c$"
+	smallString = "$$abf"
+	expected = "f$axb$"
+
+	# bigString = "abcdef"
+	# smallString = "d"
+	# expected = "d"
+	
+	print(smallestSubstringContaining(bigString, smallString))
 '''
 
 
-bigString = "abcd$e f$axb$ c$"
-smallString = "$$abf"
-expected = "f$axb$"
 
-
-bigString = "abcdef"
-smallString = "d"
-expected = "d"
-print(smallestSubstringContaining(bigString, smallString))
-
-
-# Version 1. 
+# Version 1.
 # O(b + s) TS
 # Method "window" from left to right pointer.
 # We track total number of unique symbols from smallString,
-# and we track how many unique numbers and their quantity 
+# and we track how many unique numbers and their quantity
 # we have in bigString between left and right pointers
 
 def smallestSubstringContaining(bigString, smallString):
@@ -36,7 +38,7 @@ def getSmallestSubstringContaining(string, table, unique_chr):
     smallestSubstringContainingIdx = [-1, -1]
     lengthSS = float("inf")
 
-	# firstly, let's skip all useless letter at the beginning
+    # firstly, let's skip all useless letter at the beginning
     while left < len(string) and string[left] not in table:
         left += 1
     right = left  # pointer from the right
@@ -44,23 +46,23 @@ def getSmallestSubstringContaining(string, table, unique_chr):
     while left <= right < len(string):
         letter = string[right]
         if letter in table:
-			# how many unique symbol did we find? current_unique_chr tracks it
+        # how many unique symbol did we find? current_unique_chr tracks it
             current_unique_chr = updateUniqueCounter(current_unique_chr, letter, table, 1)
         else:
             right += 1
             continue
 
-        while current_unique_chr >= unique_chr:
+        while current_unique_chr == unique_chr:
             letter = string[left]
-			# update our smallest substring
+            # update our smallest substring
             lengthSS, smallestSubstringContainingIdx = updateSmallestSubstringContaining(left, right, lengthSS, smallestSubstringContainingIdx)
             # and we push left pointer to move +1
-			# before, we update current_unique_chr 
-			# because we shift pointer from the letter,
-			# which we might use in our substring
-			current_unique_chr = updateUniqueCounter(current_unique_chr, letter, table, -1)
+            # before, we update current_unique_chr
+            # because we shift pointer from the letter,
+            # which we might use in our substring
+            current_unique_chr = updateUniqueCounter(current_unique_chr, letter, table, -1)
             left += 1
-			# if new letter in not in our small string, then again +1
+            # if new letter in not in our small string, then again +1
             while left < len(string) and string[left] not in table:
                 left += 1
             if left == len(string):
