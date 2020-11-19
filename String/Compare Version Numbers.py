@@ -12,58 +12,53 @@ Here is an example of version numbers ordering:
 
 0.1 < 1.1 < 1.2 < 1.13 < 1.13.4
 
+string1 = "13.0"
+string2 = "13.0..8"
+print(compareVersion(string1, string2))
+
 '''
 
-class Solution:
-    # @param A : string
-    # @param B : string
-    # @return an integer
-    def compareVersion(self, A, B):
 
-        A = A.split('.')
-        B = B.split('.')
-        
-        mini = min(len(A), len(B))
-        
-        for i in range(mini):
-            
-            if A[i] == '':
-                temp_a = 0
+def compareVersion(string_one, string_two):
+    def convertVersionToNumber(string):
+        version = string.split('.')
+        for idx in range(len(version)):
+            if version[idx]:
+                try:
+                    version[idx] = int(version[idx])
+                except:
+                    version[idx] = ord(version[idx])
             else:
-                temp_a = int(A[i])
-                
-            if B[i] == '':
-                temp_b = 0
-            else:
-                temp_b = int(B[i])
-            
-            if temp_a > temp_b:
-                return "1"
-            elif temp_a < temp_b:
-                return "-1"
-            else:
-                if i == mini-1:
-                    
-                    if len(A) == len(B):
-                        return "0"
-                    else:
-                        if len(A) > len(B):
-                            
-                            temp = A[i+1::]
-                            temp = ''.join(temp)
-                            
-                            if int(temp) == 0:
-                                return "0"
-                            else:
-                                return "1"
-                        else:
-                            temp = B[i+1::]
-                            temp = ''.join(temp)
-                            
-                            if int(temp) == 0:
-                                return "0"
-                            else:
-                                return "-1"
+                version[idx] = 0
+        return version
 
-                
-                
+    p1 = 0
+    p2 = 0
+
+    version_one = convertVersionToNumber(string_one)
+    version_two = convertVersionToNumber(string_two)
+
+    while p1 < len(version_one) and p2 < len(version_two):
+        if version_one[p1] == version_two[p2]:
+            p1 += 1
+            p2 += 1
+        elif version_one[p1] < version_two[p2]:
+            return -1
+        else:
+            return 1
+
+    if p1 == len(version_one) and p2 == len(version_two):
+        return 0
+    elif p1 == len(version_one):
+        while p2 < len(version_two):
+            if version_two[p2] != 0:
+                return -1
+            p2 += 1
+        return 0
+    else:
+        while p1 < len(version_one):
+            if version_one[p1] != 0:
+                return 1
+            p1 += 1
+        return 0
+    
