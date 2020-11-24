@@ -13,7 +13,7 @@ arrays = [
   # of smallest numbers from each subarray.
 
 def mergeSortedArrays(arrays):
-    if len(arrays) < 2:
+    if not len(arrays):
         return arrays
     search_heap = createMinHeapFromFirstElement(arrays)
     merged_sorted_array = mergeAndSort(arrays, search_heap)
@@ -21,11 +21,12 @@ def mergeSortedArrays(arrays):
 
 
 def createMinHeapFromFirstElement(arrays):
-    min_heap = MinHeap()
+    min_heap = ModifiedMinHeap()
     for i in range(len(arrays)):
-        min_heap.addNode(Node(arrays[i][0], i, 0, len(arrays[i])))
-    for k in range(len(min_heap.heap)):
-        min_heap.siftUp(k)
+        # node_config = [initial_element, sub_array_idx,
+        #               initial_idx, sub_array_length]
+        node_config = [arrays[i][0], i, 0, len(arrays[i])]
+        min_heap.addNode(node_config)
     min_heap.head = min_heap.heap[0]
     return min_heap
 
@@ -45,13 +46,23 @@ def mergeAndSort(arrays, min_heap):
     return merged_array
 
 
-class MinHeap:
+class ModifiedMinHeap:
+    class MinHeapNode:
+        def __init__(self, config):
+            value, sub_array_idx, idx, limit = config
+            self.value = value
+            self.sub_array_idx = sub_array_idx
+            self.idx = idx
+            self.limit = limit
+            
     def __init__(self):
         self.heap = []
         self.head = None
 
-    def addNode(self, node):
+    def addNode(self, node_config):
+        node = self.MinHeapNode(node_config)
         self.heap.append(node)
+        self.siftUp(-1)
 
     def siftDown(self, start_index):
         heap = self.heap
@@ -76,7 +87,7 @@ class MinHeap:
             start_index = new_index
             child_one_index = 2 * start_index + 1
             child_two_index = 2 * start_index + 2
-
+    
     def removeHead(self):
         if self.head is not None:
             if len(self.heap) > 1:
@@ -87,8 +98,10 @@ class MinHeap:
             else:
                 self.head = None
                 self.heap.pop()
-
+    
     def siftUp(self, idx):
+        if idx < 0:
+            idx = len(self.heap) + idx
         while idx > 0:
             parent_idx = (idx - 1) // 2
             if self.heap[idx].value < self.heap[parent_idx].value:
@@ -96,17 +109,6 @@ class MinHeap:
                 idx = parent_idx
             else:
                 break
-
+    
     def swap(self, i, j, array):
         array[i], array[j] = array[j], array[i]
-
-
-class Node:
-    def __init__(self, value, sub_array_idx, idx, limit):
-        self.value = value
-        self.sub_array_idx = sub_array_idx
-        self.idx = idx
-        self.limit = limit
-
-
-print(mergeSortedArrays(arrays))
