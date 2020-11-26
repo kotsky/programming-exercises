@@ -8,39 +8,40 @@ Take a note, that rectangles lines have to be parallel to X or Y axis.
 # O(n^2) T / o(n) S
 
 def rectangleMania(coords):
-    table = coordToHashTable(coords)
-    rectangles = 0
-    for i in range(len(coords)):
-        left_top = coords[i]
-        for j in range(len(coords)):
-            if j == i:
+    search_table = convert_to_hash_table(coords)
+    search_table['count'] = 0
+    for coord_one in coords:
+        for coord_two in coords:
+            if coord_two == coord_one:
                 continue
-            right_bot = coords[j]
-            if checkRectangle(left_top, right_bot, table):
-                rectangles += 1
-    return rectangles
+            rectangle_check(coord_one, coord_two, search_table)
+    return search_table['count']
 
 
-def checkRectangle(p1, p3, table):
-    if p1[0] >= p3[0] or p1[1] <= p3[1]:
-        return False
-    p2 = [p3[0], p1[1]]
-    p4 = [p1[0], p3[1]]
-    if coordToKey(p2) in table and coordToKey(p4) in table:
-        return True
-    else:
-        return False
+def rectangle_check(p1, p2, table):
+    if p1[0] >= p2[0] or p1[1] >= p2[1]:
+        return
+
+    p3 = [p1[0], p2[1]]
+    p4 = [p2[0], p1[1]]
+    key_p3 = get_key_from_coord(p3)
+    key_p4 = get_key_from_coord(p4)
+    if key_p4 in table and key_p3 in table:
+        table['count'] += 1
 
 
-def coordToHashTable(coords):
+def convert_to_hash_table(coords):
     table = {}
     for coord in coords:
-        table[coordToKey(coord)] = coord
+        key = get_key_from_coord(coord)
+        if key not in table:
+            table[key] = True
     return table
 
 
-def coordToKey(coord):
-    return str(coord[0]) + ',' + str(coord[1])
+def get_key_from_coord(coord):
+    x, y = coord
+    return str(x) + ',' + str(y)
     
     
     
