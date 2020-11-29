@@ -15,7 +15,7 @@ def waterArea(heights):
 	if len(heights) < 2:
 		return 0
 	
-    leftPointer = 0
+    	leftPointer = 0
 	rightPoiner = len(heights) - 1
 	area = 0
 	rightMax = heights[rightPoiner]
