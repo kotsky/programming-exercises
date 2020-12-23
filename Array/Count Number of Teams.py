@@ -14,13 +14,22 @@ Example:
     Output: 3
     Explanation: We can form three teams given the conditions. (2,3,4), (5,4,1), (5,3,1).
 
-# ============ Solving ===========
+The idea:
+    1. Pre-computation -> build table {}, where you define next element for each element,
+    which satisfy respective condition: table1 rating[i] < rating[j] and table2 rating[i] > rating[j].
+    2. Do traversing for defining k element from pre-built tables.
+
+rating[i] < rating[j] < rating[k]
+
+->i->j->k
+2,5,3,4,1
+
 # rating[i] < rating[j] < rating[k]
-        ->i->j->k
+->i->j->k
         0,1,2,3,4
 array = 2,5,3,4,1
 
-step 0: pre-computation!
+step 0: pre-comp
     O(N^2) TIme
 table_of_next
     2:  (idx_j)   1, 2, 3
@@ -30,7 +39,7 @@ table_of_next
 
 count = 0
 
-O(N^2) Time
+    O(N^2) Time
 
 for num_i in table_of_next:
     for j in table_of_next[num_i]:
@@ -51,34 +60,26 @@ for i in range(len(array)):
 # ==================================
 """
 
-
 def count_teams(num_teams):
 
     def _build_table_of_next(array):
-        table = {}
+        table_storage = [{}, {}]
         # rating[i] < rating[j] <>> rating[k]
         for i in range(len(array)):
             num_i = array[i]
             for j in range(i + 1, len(array)):
                 num_j = array[j]
                 if num_i < num_j:
-                    if num_i not in table:
-                        table[num_i] = [j]
+                    if num_i not in table_storage[0]:
+                        table_storage[0][num_i] = [j]
                     else:
-                        table[num_i].append(j)
-        table_storage = [table]
-        table = {}
-        # rating[i] > rating[j] > rating[k]
-        for i in range(len(array)):
-            num_i = array[i]
-            for j in range(i + 1, len(array)):
-                num_j = array[j]
+                        table_storage[0][num_i].append(j)
                 if num_i > num_j:
-                    if num_i not in table:
-                        table[num_i] = [j]
+                    if num_i not in table_storage[1]:
+                        table_storage[1][num_i] = [j]
                     else:
-                        table[num_i].append(j)
-        table_storage.append(table)
+                        table_storage[1][num_i].append(j)
+
         return table_storage
 
     tables = _build_table_of_next(num_teams)
