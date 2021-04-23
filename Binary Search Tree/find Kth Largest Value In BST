@@ -1,0 +1,67 @@
+'''
+Find the largest kth value in BST.
+
+The idea behind - do reversed in-order traversal and track k.
+'''
+
+# Version 1
+# O(h + k) Time and O(h) Space
+
+class BST:
+    def __init__(self, value, left=None, right=None):
+        self.value = value
+        self.left = left
+        self.right = right
+
+
+def findKthLargestValueInBst(tree, k):
+    if tree is None:
+		return -1
+	answer = [None]
+	current_k = [k]
+	reversed_in_order_traversal(tree, current_k, answer)
+	return answer[0] if answer[0] is not None else -1
+
+def reversed_in_order_traversal(tree_node, current_k, answer):
+	
+	if answer[0] is not None or current_k[0] <= 0:
+		return 
+	
+	if tree_node is None:
+		return 
+	
+	reversed_in_order_traversal(tree_node.right, 
+								current_k,
+								answer)
+	current_k[0] -= 1
+	if current_k[0] == 0:
+		answer[0] = tree_node.value
+		return 
+	reversed_in_order_traversal(tree_node.left, 
+								current_k,
+								answer)
+	
+	
+# Version 2
+
+def findKthLargestValueInBst(tree, k):
+	if tree is None:
+		return -1
+	
+	sorted_tree_array = []
+	in_order_traversal(tree, sorted_tree_array)
+    return kth_max_value(sorted_tree_array, k)
+
+def in_order_traversal(tree_node, array):
+	
+	if tree_node is None:
+		return
+	
+	in_order_traversal(tree_node.left, array)
+	array.append(tree_node.value)
+	in_order_traversal(tree_node.right, array)
+
+	
+def kth_max_value(sorted_array, k):
+	n = len(sorted_array)
+	return sorted_array[(n-k)%n]
