@@ -3,7 +3,7 @@ The idea is to:
 1) Count unique letters in small string
 2) with 2 pointers and counter of passed unique letters in a big string, 
 traverse big string and checking how many and which letters we already passed 
-and does that particular part of len(smallString) was covered in bigString?
+and was that particular part of len(smallString) covered in bigString?
 
 Example:
     smallString = "abbc"
